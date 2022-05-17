@@ -15,7 +15,7 @@ from scipy.linalg import block_diag
 import matplotlib.pyplot as plt
 
 class mist_generator():
-    def __init__(self,waypts_ori=None,v0=None,a0=None,ve=None,ae=None,T=None,ave_speed=None,interval=0.01,n_order=5,n_deri=3):
+    def __init__(self,ts=np.array([]),interval=0.01,n_order=5,n_deri=3):
 
         
         self.interval = interval if interval == None else interval
@@ -23,7 +23,7 @@ class mist_generator():
         self.n_deri = n_deri if n_deri == None else n_deri
         self.polys_x = None
         self.polys_y = None
-        self.ts = None
+        self.ts = np.array([]) if ts.size == 0 else ts
         
     def minimum_snap_single(self,waypts,ts,v0,a0,ve,ae):
         """
@@ -227,12 +227,6 @@ class mist_generator():
             DESCRIPTION.
         ave_speed : TYPE
             DESCRIPTION.
-        interval : TYPE
-            DESCRIPTION.
-        n_order : TYPE
-            DESCRIPTION.
-        n_deri : TYPE
-            DESCRIPTION.
 
         Returns
         -------
@@ -268,7 +262,8 @@ class mist_generator():
         else:
             T = T            
         
-        self.ts = arrangeT(waypts,T)
+        if self.ts.size == 0:
+            self.ts = arrangeT(waypts,T)
         
         self.polys_x,self.polys_y = self.minimum_snap_2d(waypts,self.ts,v0,a0,ve,ae)
         
@@ -331,7 +326,7 @@ class mist_generator():
         
         return vxx,axx,jxx,vyy,ayy,jyy
     
-    def mist_2d_vis(self,waypts,xxs,yys,tts,vaj_xxyy,show_wp=True,show_mist_xy=True,show_avj=True):
+    def mist_2d_vis(self,waypts,xxs,yys,tts,vaj_xxyy,show_wp=True,show_mist_xy=True,show_avj=True,same_plot=False):
         """
         This function is to visualize waypts, MiST x,y and MiST avj.
 
@@ -358,7 +353,8 @@ class mist_generator():
 
         """
         if show_wp == True or show_mist_xy==True or show_avj==True:
-            plt.figure()
+            if same_plot == False:
+                plt.figure()
         else:
             print("Warning: No figure has been plotted!")
             print("To fix: Set the correct show figure parameters")
@@ -403,26 +399,59 @@ class mist_generator():
             
             for i in range(row):
                 for j in range(col):
-                    ax[i][j].grid(True)
-    
-def main_demo():
-    ax = [0.0, 1.0, 1.0,4.0, 5.0,8.0]
-    ay = [0.0, 2.0, 4.0,8.0, 2.0,3.0]
-    waypts_ori = np.array([ax,ay])
-    
-    T = 10
-    v0 = np.array([0,0])
-    a0 = np.array([0,0])
-    ve = np.array([0,0])
-    ae = np.array([0,0])
-    
-    myMistGen = mist_generator()
-    xxs,yys,tts = myMistGen.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
-    vaj_xy = myMistGen.mist_2d_vaj_gen(xxs,yys,tts)
-    myMistGen.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,True,True,True)
+                    ax[i][j].grid(True)    
+    def mist_2d_gen_all(self,waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=True,same_plot=False):
+        """
+        This function is to put MiST x,y,v,a,j output and visualization all together.
+        
+        Parameters
+        ----------
+        waypts_ori : TYPE
+            DESCRIPTION.
+        v0 : TYPE
+            DESCRIPTION.
+        a0 : TYPE
+            DESCRIPTION.
+        ve : TYPE
+            DESCRIPTION.
+        ae : TYPE
+            DESCRIPTION.
+        T : TYPE
+            DESCRIPTION.
+        show_wp : TYPE, optional
+            DESCRIPTION. The default is True.
+        show_mist_xy : TYPE, optional
+            DESCRIPTION. The default is True.
+        show_avj : TYPE, optional
+            DESCRIPTION. The default is True.
+        same_plot : TYPE, optional
+            DESCRIPTION. The default is False.
+        
+        Returns
+        -------
+        xxs : TYPE
+            DESCRIPTION.
+        yys : TYPE
+            DESCRIPTION.
+        tts : TYPE
+            DESCRIPTION.
+        vaj_xy : TYPE
+            DESCRIPTION.
+        self.ts : np.array[float]
+            Time segment.
+        
+        """
+        xxs,yys,tts= self.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
+        vaj_xy = self.mist_2d_vaj_gen(xxs,yys,tts)
+        self.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,show_wp,show_mist_xy,show_avj,same_plot)
+        
+        return xxs,yys,tts,vaj_xy,self.ts   
     
 if __name__ == '__main__':  
     pass
+
+    
+
 
     
   

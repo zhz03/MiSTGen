@@ -15,6 +15,21 @@ pip install -i https://test.pypi.org/simple/ mistgen==0.1.0
 ### 3.2 Usage
 
 ```python
+from mistgen.mist import mist_generator
+
+myMistGen = mist_generator()
+
+xxs,yys,tts = myMistGen.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
+vaj_xy = myMistGen.mist_2d_vaj_gen(xxs,yys,tts)
+myMistGen.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,show_wp=True,show_mist_xy=True,show_avj=True,same_plot=False)
+
+# or all in one:
+mistTraj = myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=False)
+```
+
+A simple example: 
+
+```python
 def main_demo_v010():
 	ax = [0.0, 5.0,5.0,0.0]
     ay = [0.0, 0.0,6.0,6.0]
@@ -31,6 +46,14 @@ def main_demo_v010():
     xxs,yys,tts = myMistGen.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
     vaj_xy = myMistGen.mist_2d_vaj_gen(xxs,yys,tts)
     myMistGen.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,True,True,True)
+```
+
+For more example, please do the following:
+
+```python
+from mistgen.examples.main_demo_v010 import main_demo_v010
+from mistgen.examples.main_demo_v02x import main_demo_v020
+from mistgen.examples.main_demo_v02x import main_demo_v021
 ```
 
 ## Reference

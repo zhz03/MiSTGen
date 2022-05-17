@@ -1,0 +1,14 @@
+name: mistgen
+channels:
+  - defaults
+dependencies:
+  - pip==21.1.2
+  - python==3.7.11
+  - pip:
+    - matplotlib==3.4.2
+    - numpy
+    - setuptools
+    - wheel
+    - twine
+    - cvxopt
+

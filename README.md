@@ -2,6 +2,8 @@
 
 ## 1 Overview
 
+Minimum snap trajectory generators can generate smooth trajectories that have minimum snap， pass through specified waypoints and are subject to velocity and acceleration constraints.
+
 ![](figs/fig1.png)
 
 ## 2 How to use
@@ -9,7 +11,7 @@
 ### 3.1 Installing
 
 ```shell
-pip install -i https://test.pypi.org/simple/ mistgen==0.1.0
+pip install mistgen
 ```
 
 ### 3.2 Usage
@@ -54,6 +56,20 @@ For more example, please do the following:
 from mistgen.examples.main_demo_v010 import main_demo_v010
 from mistgen.examples.main_demo_v02x import main_demo_v020
 from mistgen.examples.main_demo_v02x import main_demo_v021
+```
+
+## 3 API
+
+Some utils functions:
+
+```python
+from utils.T_functions import arrangeT
+from utils.T_functions import init_T
+from utils.cvxopt_qp import quadprog
+from utils.other_utils import computeQ
+from utils.other_utils import calc_tvec
+from utils.other_utils import re_shape_vaj
+from utils.other_utils import poly_val
 ```
 
 ## Reference

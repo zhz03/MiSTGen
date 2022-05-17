@@ -72,6 +72,12 @@ from utils.other_utils import re_shape_vaj
 from utils.other_utils import poly_val
 ```
 
+## License
+
+This source code is released under `GNU GENERAL PUBLIC LICENSE Version 3` license.
+
+For more questions, please contact author: Zhaoliang (zhz03@g.ucla.edu)
+
 ## Reference
 
 [1] Minimum Snap Trajectory Generation and Control for Quadrotors

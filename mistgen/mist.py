@@ -514,28 +514,31 @@ def main_demo_v021():
     ts[2] = ts[2] 
     
     myMistGen = mist_generator()
-    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=False)
+    mistTraj1 = myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=False)
     
+    ts = mistTraj1[-1]
     ts[1] = ts[1] + 0.5
     ts[2] = ts[2] - 0.5
     
     myMistGen = mist_generator(ts)
-    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
+    mistTraj2 = myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
     
+    ts = mistTraj2[-1]
     ts[1] = ts[1] + 0.3
     ts[2] = ts[2] - 0.3
     
     myMistGen = mist_generator(ts)
-    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
+    mistTraj3 = myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
     
+    ts = mistTraj3[-1]
     ts[1] = ts[1] + 0.2
     ts[2] = ts[2] - 0.2
     
     myMistGen = mist_generator(ts)
-    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)   
+    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
     
 if __name__ == '__main__':  
-    pass 
+    pass
 
     
 

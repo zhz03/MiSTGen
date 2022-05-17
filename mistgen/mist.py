@@ -400,6 +400,52 @@ class mist_generator():
             for i in range(row):
                 for j in range(col):
                     ax[i][j].grid(True)    
+    def mist_2d_gen_all(self,waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=True,same_plot=False):
+        """
+        This function is to put MiST x,y,v,a,j output and visualization all together.
+        
+        Parameters
+        ----------
+        waypts_ori : TYPE
+            DESCRIPTION.
+        v0 : TYPE
+            DESCRIPTION.
+        a0 : TYPE
+            DESCRIPTION.
+        ve : TYPE
+            DESCRIPTION.
+        ae : TYPE
+            DESCRIPTION.
+        T : TYPE
+            DESCRIPTION.
+        show_wp : TYPE, optional
+            DESCRIPTION. The default is True.
+        show_mist_xy : TYPE, optional
+            DESCRIPTION. The default is True.
+        show_avj : TYPE, optional
+            DESCRIPTION. The default is True.
+        same_plot : TYPE, optional
+            DESCRIPTION. The default is False.
+        
+        Returns
+        -------
+        xxs : TYPE
+            DESCRIPTION.
+        yys : TYPE
+            DESCRIPTION.
+        tts : TYPE
+            DESCRIPTION.
+        vaj_xy : TYPE
+            DESCRIPTION.
+        self.ts : np.array[float]
+            Time segment.
+        
+        """
+        xxs,yys,tts= self.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
+        vaj_xy = self.mist_2d_vaj_gen(xxs,yys,tts)
+        self.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,show_wp,show_mist_xy,show_avj,same_plot)
+        
+        return xxs,yys,tts,vaj_xy,self.ts   
     
 def main_demo_v010():
     # v 0.1.0 test
@@ -450,9 +496,46 @@ def main_demo_v020():
     xxs,yys,tts = myMistGen.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
     vaj_xy = myMistGen.mist_2d_vaj_gen(xxs,yys,tts)
     myMistGen.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,True,True,False,True) 
+
+def main_demo_v021():
+    ax = [0.0, 1.0,1.0,0.0]
+    ay = [0.0, 0.0,2.0,2.0]
+    
+    waypts_ori = np.array([ax,ay])
+    
+    T = 10
+    v0 = np.array([0,0])
+    a0 = np.array([0,0])
+    ve = np.array([0,0])
+    ae = np.array([0,0])
+    
+    ts = arrangeT(waypts_ori,T)
+    ts[1] = ts[1]
+    ts[2] = ts[2] 
+    
+    myMistGen = mist_generator()
+    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=False)
+    
+    ts[1] = ts[1] + 0.5
+    ts[2] = ts[2] - 0.5
+    
+    myMistGen = mist_generator(ts)
+    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
+    
+    ts[1] = ts[1] + 0.3
+    ts[2] = ts[2] - 0.3
+    
+    myMistGen = mist_generator(ts)
+    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)
+    
+    ts[1] = ts[1] + 0.2
+    ts[2] = ts[2] - 0.2
+    
+    myMistGen = mist_generator(ts)
+    myMistGen.mist_2d_gen_all(waypts_ori,v0,a0,ve,ae,T,show_wp=True,show_mist_xy=True,show_avj=False,same_plot=True)   
     
 if __name__ == '__main__':  
-    pass
+    pass 
 
     
 

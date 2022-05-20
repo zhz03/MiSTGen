@@ -4,6 +4,7 @@
 """
 
 import numpy as np
+import math
 from utils.T_functions import arrangeT
 from utils.T_functions import init_T
 from utils.cvxopt_qp import quadprog
@@ -167,6 +168,34 @@ class mist_generator():
                 vals[0][i] = poly_val(a,t,r)
         
         return vals
+    
+    def calc_yaw(self,vy,vx):
+        """
+        Calculate yaw radius and yaw angle
+
+        Parameters
+        ----------
+        vy,vx : n * 1 np.array[float]
+            y velocity and x velocity.
+
+        Returns
+        -------
+        yaw_rad,yaw_deg : n * 1 np.array[float]
+            yaw radius and yaw angle
+
+        """
+        lxy = len(vx)
+        yaw_rad = np.zeros((lxy,))
+        yaw_deg = np.zeros((lxy,))
+        for i in range(lxy):
+            yaw_i = math.atan2(vy[i],vx[i])
+            yaw_rad[i] = yaw_i
+            yaw_deg[i] = np.rad2deg(yaw_i)
+        # correct the first one
+        yaw_deg[0] = yaw_deg[1]
+        yaw_rad[0] = yaw_rad[1]
+            
+        return yaw_rad,yaw_deg
     
     def minimum_snap_2d(self,waypts,ts,v0,a0,ve,ae):
         """
@@ -408,16 +437,16 @@ class mist_generator():
         ----------
         waypts_ori : TYPE
             DESCRIPTION.
-        v0 : TYPE
-            DESCRIPTION.
-        a0 : TYPE
-            DESCRIPTION.
-        ve : TYPE
-            DESCRIPTION.
-        ae : TYPE
-            DESCRIPTION.
-        T : TYPE
-            DESCRIPTION.
+        v0 : np.array[float] 
+            Initial set velocity.
+        a0 : np.array[float] 
+            Initial set acceleration.
+        ve : np.array[float] 
+            End set velocity.
+        ae : np.array[float] 
+            End set acceleration.
+        T : float
+            Total set execution time.
         show_wp : TYPE, optional
             DESCRIPTION. The default is True.
         show_mist_xy : TYPE, optional
@@ -449,12 +478,3 @@ class mist_generator():
     
 if __name__ == '__main__':  
     pass
-
-    
-
-
-    
-  
-        
-        
-        

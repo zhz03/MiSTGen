@@ -48,6 +48,7 @@ def main_demo_v010():
     xxs,yys,tts = myMistGen.mist_2d_gen(waypts_ori,v0,a0,ve,ae,T)
     vaj_xy = myMistGen.mist_2d_vaj_gen(xxs,yys,tts)
     myMistGen.mist_2d_vis(waypts_ori,xxs,yys,tts,vaj_xy,True,True,True)
+    yaw_rad,yaw_deg = myMistGen.calc_yaw(vaj_xy[0],vaj_xy[3])
 ```
 
 For more example, please do the following:

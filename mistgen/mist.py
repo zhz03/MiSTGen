@@ -5,13 +5,13 @@
 
 import numpy as np
 import math
-from utils.T_functions import arrangeT
-from utils.T_functions import init_T
-from utils.cvxopt_qp import quadprog
-from utils.other_utils import computeQ
-from utils.other_utils import calc_tvec
-from utils.other_utils import re_shape_vaj
-from utils.other_utils import poly_val
+from mistgen.utils.T_functions import arrangeT
+from mistgen.utils.T_functions import init_T
+from mistgen.utils.cvxopt_qp import quadprog
+from mistgen.utils.other_utils import computeQ
+from mistgen.utils.other_utils import calc_tvec
+from mistgen.utils.other_utils import re_shape_vaj
+from mistgen.utils.other_utils import poly_val
 from scipy.linalg import block_diag
 import matplotlib.pyplot as plt
 

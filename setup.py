@@ -19,7 +19,8 @@ setup(
     install_requires=[
         "matplotlib==3.4.2",
         "numpy",
-        "cvxopt"
+        "cvxopt",
+        "scipy"
         ],
     classifiers=[
         "Topic :: Software Development :: Libraries :: Python Modules",

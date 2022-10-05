@@ -92,7 +92,7 @@ def main_demo_v024():
 
     vxx,_,_,vyy,_,_ = vaj_xxyy[0],vaj_xxyy[1],vaj_xxyy[2],vaj_xxyy[3],vaj_xxyy[4],vaj_xxyy[5]
     
-    yaw_rad,yaw_deg = myMistGen.calc_yaw(vyy,vxx)  
-    
+    yaw_rad,yaw_deg = myMistGen.calc_yaw(vyy,vxx)
+
 if __name__ == '__main__':
     main_demo_v020()
